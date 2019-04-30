@@ -1,0 +1,42 @@
+/* Your custom styles */
+.col-md-3, .col-md-9{
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.col-md-3 .size{
+    padding-left: 50px;
+}
+
+.col-md-3{
+    border-right: 1px solid #BABABA;
+}
+
+.col-md{
+    height: 100px;
+}
+
+ul{
+    padding: 0;
+    list-style-type: none;
+}
+
+.ulpdn li{
+    padding-left: 20px;
+}
+
+.size{
+    height: 100px;
+    margin: auto 0;
+}
+
+.input-group.md-form.form-sm.form-2 input {
+    border: 1px solid #bdbdbd;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+}
+
+.input-group-append{
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+}
