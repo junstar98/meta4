@@ -948,6 +948,7 @@ body.offcanvas {
 
 
   .project .desc {
+    cursor: pointer;
     position: absolute;
     top: 0;
     bottom: 0;
