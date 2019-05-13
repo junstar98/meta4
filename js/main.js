@@ -31,7 +31,122 @@
 		});
 	}
 
-	function makeClubDiv(name, brief, category, member, ratio, fee, description) {
+	function readQNA(callback){
+		return firebase.database().ref("/QnA/").once("value", function(snapshot){
+			var myValue = snapshot.val();
+
+			var keyList = Object.keys(myValue);
+			for (var i = 0; i < keyList.length; i++){
+				let details =[];
+
+				var currKey = keyList[i];
+				details.push(myValue[currKey].Question);
+				details.push(myValue[currKey].Club);
+				details.push(myValue[currKey].Likes);
+				details.push(myValue[currKey].CommentCount);
+				
+				var commentList = myValue[currKey].Comments;
+				var comments = (Object.values(commentList));
+
+				console.log(comments)
+
+				makeQNADiv(details[0],details[1],details[2],details[3]);
+				//makeAnswerDiv(commments);
+			}
+			callback();
+		})
+	}
+	
+
+	function newQuestion(question,club){
+		var newKey = firebase.database().ref('/QnA/').push();
+		console.log(newKey);
+		newKey.set({
+			Question: question, 
+			Club: club,
+			CommentCount: 0,
+			Likes: 0
+		});
+	}
+	
+	
+	function makeQNADiv(Question, Club, Likes, CommentCount){
+		var place = document.getElementById("QNAs");
+		var node = document.createElement("div");
+
+		node.setAttribute("data-animate-effect", "fadeInLeft");
+		node.setAttribute("class", "col-md-6 animate-box")
+
+		var node2 = document.createElement("div");
+
+		node2.setAttribute("class", "project2");
+		node2.setAttribute(
+			"style",
+			"border: 4px solid; border-color: black; background-color: white; vertical-align: middle;"
+			);
+
+		var node3 = document.createElement("div");
+
+		node3.setAttribute("class", "desc");
+
+		var node4 = document.createElement("div");
+
+		node4.setAttribute("class", "con");
+
+		var clubNodeHeader = document.createElement("h3");
+		var clubNode = document.createElement("a");
+		clubNode.innerText = Club;
+		
+		var questionNode = document.createElement("span");
+
+		questionNode.innerText = Question;
+
+		var likeP = document.createElement("p");
+		likeP.setAttribute("class","icon");
+		
+		var likeSpan = document.createElement("span");
+		var likeA = document.createElement("a");
+		likeA.setAttribute("href","#")
+		likeA.setAttribute("class","likeButton");
+		likeA.innerText = Likes;
+
+		var commentP = document.createElement("p");
+		commentP.setAttribute("class","icon_c");
+
+		var commentSpan = document.createElement("span");
+		var commentA = document.createElement("a");
+		commentA.setAttribute("href","#")
+		commentA.setAttribute("class","commentButton");
+		commentA.innerText = CommentCount;
+
+		var likeIcon = document.createElement("i");
+		likeIcon.setAttribute("class","icon-heart");
+
+		var commentIcon = document.createElement("i");
+		commentIcon.setAttribute("class","far fa-comment")
+
+		commentA.appendChild(commentIcon);
+		commentSpan.appendChild(commentA);
+		commentP.appendChild(commentSpan);
+
+		likeA.appendChild(likeIcon);
+		likeSpan.appendChild(likeA);
+		likeP.appendChild(likeSpan);
+		clubNodeHeader.appendChild(clubNode);
+		
+		node4.appendChild(clubNodeHeader);
+		node4.appendChild(questionNode);
+		node4.appendChild(likeP);
+		node4.appendChild(commentP);
+
+		node3.appendChild(node4);
+		node2.appendChild(node3);
+		node.appendChild(node2);
+		place.appendChild(node);
+
+		}
+
+	function makeClubDiv(name, brief, category, member, ratio, fee) {
 		var place = document.getElementById("clubs");
 		var node = document.createElement("div");
 
@@ -187,8 +302,6 @@
 		place.appendChild(node);
 		//place.insertBefore(node, place.children[1]);
 	}
-
-
 
 
 	//Categories Page Category Selection
@@ -666,7 +779,10 @@
     };
 
 	
+<<<<<<< HEAD
 
+=======
+>>>>>>> QnA
 	$(document).ready(function(){
 		
 		applyFilter();
@@ -678,7 +794,6 @@
 
 	//Click on ADD 
 	//
-
 
 
 
@@ -1044,5 +1159,8 @@
 		
 	});
 
+	readQNA(function(){
+		callDefault();
+	})
 
 }());

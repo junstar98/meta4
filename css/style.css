@@ -1570,3 +1570,82 @@ body.offcanvas {
     left: 0px;
     will-change: transform;
 }
+
+.project2 {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  position: relative;
+  height: 200px;
+  width: 100%;
+  display: block;
+  margin-bottom: 30px; 
+}
+
+.project2 .desc {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #646664;
+  opacity: 1;
+}
+  .project2 .desc .con {
+    padding: 20px;
+    display: block;
+    position: relative;
+    }
+    .project2 .desc .con .icon {
+      bottom: 20px;
+      float: right;
+      right: 20px; }
+      .project2 .desc .con .icon span {
+        display: inline;
+        padding-right: 5px; }
+        .project2 .desc .con .icon span a {
+          color: #333333;
+          padding: 5px;
+          background: rgba(255, 255, 255, 0.5);
+          -webkit-border-radius: 4px;
+          -moz-border-radius: 4px;
+          -ms-border-radius: 4px;
+          border-radius: 4px; }
+      .project2 .desc .con .icon i {
+        font-size: 16px;
+        color: #333333; }
+  .project2 .desc h3 {
+    font-family: "Quicksand", Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px; }
+    .project2 .desc h3 a {
+      color: #fff; }
+  .project2 .desc span {
+    display: block;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 13px;}
+    .project2 .desc span a {
+      color: #000; }
+
+  .project2 .desc .con .icon_c {
+    bottom: 20px;
+    float: right;
+    right: 20px; }
+    .project2 .desc .con .icon_c span {
+      display: inline;
+      padding-right: 10px; }
+      .project2 .desc .con .icon_c span a {
+        color: #333333;
+        padding: 5px;
+        background: rgba(255, 255, 255, 0.5);
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        -ms-border-radius: 4px;
+        border-radius: 4px; }
+    .project2 .desc .con .icon_c i {
+      padding-left: 3px;
+      font-size: 15px;
+      color: black; }
