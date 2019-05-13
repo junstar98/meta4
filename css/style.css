@@ -948,7 +948,6 @@ body.offcanvas {
 
 
   .project .desc {
-    cursor: pointer;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -963,6 +962,7 @@ body.offcanvas {
       padding: 20px;
       display: block;
       position: relative;
+      
       }
       .project .desc .con .icon {
         bottom: 20px;
@@ -996,6 +996,7 @@ body.offcanvas {
       transition: transform 0.3s, opacity 0.3s, -webkit-transform 0.3s;
       -webkit-transform: translate3d(0, -15px, 0);
       transform: translate3d(0, -15px, 0);
+      width: 100px;
       margin-bottom: 15px; }
       .project .desc h3 a {
         color: #fff; }

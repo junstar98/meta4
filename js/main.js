@@ -21,16 +21,17 @@
 			details.push(myValue[currKey].Member);
 			details.push(myValue[currKey].GenderRatio);
 			details.push(myValue[currKey].Fee);
+			details.push(myValue[currKey].Description);
 
 			//console.log(details);
-			makeClubDiv(details[0], details[1], details[2], details[3], details[4], details[5]);
+			makeClubDiv(details[0], details[1], details[2], details[3], details[4], details[5], details[6]);
 			}
 
 			callback();
 		});
 	}
 
-	function makeClubDiv(name, brief, category, member, ratio, fee) {
+	function makeClubDiv(name, brief, category, member, ratio, fee, description) {
 		var place = document.getElementById("clubs");
 		var node = document.createElement("div");
 
@@ -70,7 +71,7 @@
 		node2.setAttribute("class", "project");
 		node2.setAttribute(
 		"style",
-		"border: 4px solid; border-color: #2c98f0; background-color: rgba(44,152,240, 0.2); vertical-align: middle;"
+		"border: 2px solid; border-color: #2c98f0; background-color: rgba(44,152,240, 0.2); vertical-align: middle;"
 		);
 
 		var node3 = document.createElement("div");
@@ -90,11 +91,16 @@
 
 		var briefNode = document.createElement("span");
 
-		briefNode.innerText = brief;
+		briefNode.innerText = description;
+
+		var add_icon = document.createElement("i");
+		add_icon.setAttribute("class", "fas fa-plus");
+		add_icon.setAttribute("style", "float: right; padding-top: 20px; padding-right: 20px; color: #333333;");
 
 		nameNodeHeader.appendChild(nameNode);
 
 		node4.appendChild(nameNodeHeader);
+		node3.appendChild(add_icon);
 		node4.appendChild(briefNode);
 
 		//secondary
@@ -105,6 +111,7 @@
 		var node4_2 = document.createElement("div");
 
 		node4_2.setAttribute("class", "con2");
+		//node4_2.setAttribute("style", "margin: 0 auto; left: 50%");
 
 		var nameNodeHeader_2 = document.createElement("h3");
 
@@ -114,6 +121,7 @@
 		nameNode_2.innerText = name;
 
 		var briefNode_2 = document.createElement("div");
+		briefNode_2.setAttribute("class", "brief-sort");
 
 		briefNode_2.innerText = brief;
 
@@ -127,11 +135,22 @@
 		//var newLine = document.createElement("br");
 
 		var memberNode_2 = document.createElement("div");
+		var group_icon = document.createElement("i");
+
 		memberNode_2.setAttribute("class", "member-sort");
+		group_icon.setAttribute("class",  "fas fa-user-friends");
+		
 		var ratioNode_2 = document.createElement("div");
+		var money_icon = document.createElement("i");
+
 		ratioNode_2.setAttribute("class", "ratio-sort");
+		money_icon.setAttribute("class", "fas fa-dollar-sign");
+
 		var feeNode_2 = document.createElement("div");
+		var gender_icon = document.createElement("i");
+
 		feeNode_2.setAttribute("class", "fee-sort");
+		gender_icon.setAttribute("class", "fas fa-venus-mars");
 
 		memberNode_2.innerText = member;
 		ratioNode_2.innerText = ratio;
@@ -144,10 +163,13 @@
 		
 		node4_2.appendChild(briefNode_2);
 		//node4_2.appendChild(newLine);
+		node4_2.appendChild(group_icon);
 		node4_2.appendChild(memberNode_2);
 		//node4_2.appendChild(newLine);
+		node4_2.appendChild(gender_icon);
 		node4_2.appendChild(ratioNode_2);
 		//node4_2.appendChild(newLine);
+		node4_2.appendChild(money_icon);
 		node4_2.appendChild(feeNode_2);
 
 		//node4_2.appendChild(listing);
@@ -328,28 +350,280 @@
 	$(".Member .down").click(function(){
 		$(".Member .up .fa-caret-up").css("color","black");
 		$(".Member .down .fa-caret-down").css("color","red");
-	})
+		//applyFilter();
+		if ($('input[type=radio][name=opt][value=MemberCount]').is(':checked')) {
+			console.log("in member!");
+			memberSortDOWN();
+		};
+	});
+
 	$(".Member .up").click(function(){
 		$(".Member .up .fa-caret-up").css("color","green");
 		$(".Member .down .fa-caret-down").css("color","black");
+		//applyFilter();
+		if ($('input[type=radio][name=opt][value=MemberCount]').is(':checked')) {
+			console.log("in member!");
+			memberSortUP();
+		};
+		
 	})
 	$(".Fee .down").click(function(){
 		$(".Fee .up .fa-caret-up").css("color","black");
 		$(".Fee .down .fa-caret-down").css("color","red");
+		//applyFilter();
+		if ($('input[type=radio][name=opt][value=Fee]').is(':checked')) {
+			console.log("in fee!");
+			feeSortDOWN();
+		};
+		
+
 	})
 	$(".Fee .up").click(function(){
 		$(".Fee .up .fa-caret-up").css("color","green");
 		$(".Fee .down .fa-caret-down").css("color","black");
+		//applyFilter();
+		if ($('input[type=radio][name=opt][value=Fee]').is(':checked')) {
+			console.log("in fee!");
+			feeSortUP();
+		};
+		
 	})
 	$(".Gender .down").click(function(){
 		$(".Gender .up .fa-caret-up").css("color","black");
 		$(".Gender .down .fa-caret-down").css("color","red");
+		//applyFilter();
+		if ($('input[type=radio][name=opt][value=GenderRatio]').is(':checked')) {
+			console.log("in ratio!");
+			genderSortDOWN();
+		};
 	})
 	$(".Gender .up").click(function(){
 		$(".Gender .up .fa-caret-up").css("color","green");
 		$(".Gender .down .fa-caret-down").css("color","black");
+		//applyFilter();
+		if ($('input[type=radio][name=opt][value=GenderRatio]').is(':checked')) {
+			console.log("in ratio!");
+			genderSortUP();
+		};
 	})
 
+
+	function memberSortUP() {
+		var listElements = document.querySelectorAll(".single-club");
+		
+		var nodeArray = Array.prototype.slice.call(listElements, 0);
+		
+		nodeArray.sort(function(a, b) {
+			if (a.querySelector(".member-sort").innerText === b.querySelector('.member-sort').innerText)
+				return 0;
+			
+			if (a.querySelector(".member-sort").innerText <= b.querySelector('.member-sort').innerText) {
+				// b comes before a
+				return 1;
+			}
+			return -1;
+		});
+
+		//render children of '#clubs' to be the same as nodeArray
+		var clubs = document.getElementById('clubs');
+		clubs.innerHTML = ' ';
+		for (var i=0; i < nodeArray.length; i++){
+			clubs.appendChild( nodeArray[i] );
+		};
+
+		//only show member-sort
+		$(".con2").children(".brief-sort").show();
+		$(".con2").children(".member-sort").show();
+		$(".con2").children(".ratio-sort").hide();
+		$(".con2").children(".fee-sort").hide();
+
+		$(".con2").children(".fa-user-friends").show();
+		$(".con2").children(".fa-dollar-sign").hide();
+		$(".con2").children(".fa-venus-mars").hide();
+
+		callDefault();
+	};
+
+	function feeSortUP() {
+		var listElements = document.querySelectorAll(".single-club");
+					
+		var nodeArray = Array.prototype.slice.call(listElements, 0);
+		
+		nodeArray.sort(function(a, b) {
+			if (a.querySelector(".fee-sort").innerText === b.querySelector('.fee-sort').innerText)
+				return 0;
+			
+			if (a.querySelector(".fee-sort").innerText <= b.querySelector('.fee-sort').innerText) {
+				// b comes before a
+				return 1;
+			}
+			return -1;
+		});
+
+		//render children of '#clubs' to be the same as nodeArray
+		var clubs = document.getElementById('clubs');
+		clubs.innerHTML = ' ';
+		for (var i=0; i < nodeArray.length; i++){
+			clubs.appendChild( nodeArray[i] );
+		};
+
+
+		$(".con2").children(".brief-sort").show();
+		$(".con2").children(".member-sort").hide();
+		$(".con2").children(".ratio-sort").hide();
+		$(".con2").children(".fee-sort").show();
+
+		$(".con2").children(".fa-user-friends").hide();
+		$(".con2").children(".fa-dollar-sign").show();
+		$(".con2").children(".fa-venus-mars").hide();
+
+		callDefault();
+	};
+
+
+	function genderSortUP() {
+		var listElements = document.querySelectorAll(".single-club");
+					
+		var nodeArray = Array.prototype.slice.call(listElements, 0);
+		
+		nodeArray.sort(function(a, b) {
+			if (a.querySelector(".ratio-sort").innerText === b.querySelector('.ratio-sort').innerText)
+				return 0;
+			
+			if (a.querySelector(".ratio-sort").innerText <= b.querySelector('.ratio-sort').innerText) {
+				// b comes before a
+				return 1;
+			}
+			return -1;
+		});
+
+		//render children of '#clubs' to be the same as nodeArray
+		var clubs = document.getElementById('clubs');
+		clubs.innerHTML = ' ';
+		for (var i=0; i < nodeArray.length; i++){
+			clubs.appendChild( nodeArray[i] );
+		};
+
+		$(".con2").children(".brief-sort").show();
+		$(".con2").children(".member-sort").hide();
+		$(".con2").children(".ratio-sort").show();
+		$(".con2").children(".fee-sort").hide();
+
+		$(".con2").children(".fa-user-friends").hide();
+		$(".con2").children(".fa-dollar-sign").hide();
+		$(".con2").children(".fa-venus-mars").show();
+
+		callDefault();
+	};
+
+	function memberSortDOWN() {
+		var listElements = document.querySelectorAll(".single-club");
+		
+		var nodeArray = Array.prototype.slice.call(listElements, 0);
+		
+		nodeArray.sort(function(a, b) {
+			if (a.querySelector(".member-sort").innerText === b.querySelector('.member-sort').innerText)
+				return 0;
+			
+			if (a.querySelector(".member-sort").innerText >= b.querySelector('.member-sort').innerText) {
+				// b comes before a
+				return 1;
+			}
+			return -1;
+		});
+
+		//render children of '#clubs' to be the same as nodeArray
+		var clubs = document.getElementById('clubs');
+		clubs.innerHTML = ' ';
+		for (var i=0; i < nodeArray.length; i++){
+			clubs.appendChild( nodeArray[i] );
+		};
+
+		//only show member-sort
+		$(".con2").children(".brief-sort").show();
+		$(".con2").children(".member-sort").show();
+		$(".con2").children(".ratio-sort").hide();
+		$(".con2").children(".fee-sort").hide();
+
+		$(".con2").children(".fa-user-friends").show();
+		$(".con2").children(".fa-dollar-sign").hide();
+		$(".con2").children(".fa-venus-mars").hide();
+
+		callDefault();
+	};
+
+
+	function feeSortDOWN() {
+		var listElements = document.querySelectorAll(".single-club");
+					
+		var nodeArray = Array.prototype.slice.call(listElements, 0);
+		
+		nodeArray.sort(function(a, b) {
+			if (a.querySelector(".fee-sort").innerText === b.querySelector('.fee-sort').innerText)
+				return 0;
+			
+			if (a.querySelector(".fee-sort").innerText >= b.querySelector('.fee-sort').innerText) {
+				// b comes before a
+				return 1;
+			}
+			return -1;
+		});
+
+		//render children of '#clubs' to be the same as nodeArray
+		var clubs = document.getElementById('clubs');
+		clubs.innerHTML = ' ';
+		for (var i=0; i < nodeArray.length; i++){
+			clubs.appendChild( nodeArray[i] );
+		};
+
+
+		$(".con2").children(".brief-sort").show();
+		$(".con2").children(".member-sort").hide();
+		$(".con2").children(".ratio-sort").hide();
+		$(".con2").children(".fee-sort").show();
+
+		$(".con2").children(".fa-user-friends").hide();
+		$(".con2").children(".fa-dollar-sign").show();
+		$(".con2").children(".fa-venus-mars").hide();
+
+		callDefault();
+	};
+
+
+	function genderSortDOWN() {
+		var listElements = document.querySelectorAll(".single-club");
+					
+		var nodeArray = Array.prototype.slice.call(listElements, 0);
+		
+		nodeArray.sort(function(a, b) {
+			if (a.querySelector(".ratio-sort").innerText === b.querySelector('.ratio-sort').innerText)
+				return 0;
+			
+			if (a.querySelector(".ratio-sort").innerText >= b.querySelector('.ratio-sort').innerText) {
+				// b comes before a
+				return 1;
+			}
+			return -1;
+		});
+
+		//render children of '#clubs' to be the same as nodeArray
+		var clubs = document.getElementById('clubs');
+		clubs.innerHTML = ' ';
+		for (var i=0; i < nodeArray.length; i++){
+			clubs.appendChild( nodeArray[i] );
+		};
+
+		$(".con2").children(".brief-sort").show();
+		$(".con2").children(".member-sort").hide();
+		$(".con2").children(".ratio-sort").show();
+		$(".con2").children(".fee-sort").hide();
+
+		$(".con2").children(".fa-user-friends").hide();
+		$(".con2").children(".fa-dollar-sign").hide();
+		$(".con2").children(".fa-venus-mars").show();
+
+		callDefault();
+	};
 
 
 	//Filtering categories div
@@ -357,55 +631,53 @@
 	function applyFilter() {
        
 		$('input[type=radio][name=opt]').change(function() {
-			if (this.value == 'Description') {
-				console.log("1");
-				$(this).prop("checked", true).trigger("click");
-				//var listElements = document.querySelectorAll('.single-club');
-				
-				
-			}
-			else if (this.value == "MemberCount") {
-				console.log("2");
-				$(this).prop("checked", true).trigger("click");
-				var listElements = document.querySelectorAll(".single-club");
-				
-				var nodeArray = Array.prototype.slice.call(listElements, 0);
-				
-				nodeArray.sort(function(a, b) {
-					if (a.querySelector(".member-sort").innerText === b.querySelector('.member-sort').innerText)
-            			return 0;
-					
-					if (a.querySelector(".member-sort").innerText <= b.querySelector('.member-sort').innerText) {
-						// b comes before a
-						return 1;
-					}
-					return -1;
-				});
+			
+			
 
-				//render children of '#clubs' to be the same as nodeArray
-				var clubs = document.getElementById('clubs');
-				clubs.innerHTML = ' ';
-				for (var i=0; i < nodeArray.length; i++){
-					clubs.appendChild( nodeArray[i] );
-				};
-			 
+			if (this.value == "MemberCount") {
+				console.log("member clicked");
+				$(this).prop("checked", true).trigger("click");
+				if ($('.m1').css('color') === 'rgb(0, 128, 0)'){
+					memberSortUP();
+				} else {
+					memberSortDOWN();
+				}
+          		
            } else if (this.value == "Fee") {
-			 console.log("3");
-			 $(this).prop("checked", true).trigger("click");
+				console.log("fee clicked");
+				$(this).prop("checked", true).trigger("click");
+				if ($(".Fee .up .fa-caret-up").css("color") === 'rgb(0, 128, 0)') {
+					feeSortUP();
+				} else {
+					feeSortDOWN();
+				}
+			 
 			 
            } else if (this.value == "GenderRatio") {
-			 console.log("4");
-			 $(this).prop("checked", true).trigger("click");
-			 
+				console.log("genderRatio clicked");
+				$(this).prop("checked", true).trigger("click");
+				if ($(".Gender .up .fa-caret-up").css("color") === 'rgb(0, 128, 0)') {
+					genderSortUP();
+				} else {
+					genderSortDOWN();
+				}
            }
 		});
-		//$("input[value=all]").prop("checked", false).trigger("click");
     };
 
+	
 
 	$(document).ready(function(){
+		
 		applyFilter();
+	
 	});
+
+
+
+
+	//Click on ADD 
+	//
 
 
 
@@ -719,7 +991,57 @@
 	callDefault();
 
 	readClubInfo(function() {
+		
 		callDefault();
+
+		$("input[type=radio][name=opt][value=MemberCount]").prop("checked", true).trigger("click");
+
+		var listElements = document.querySelectorAll(".single-club");
+				
+		var nodeArray = Array.prototype.slice.call(listElements, 0);
+
+		var mapped = nodeArray.map(function(el, i) {
+			return { index: i, value: el };
+		});
+
+		
+		
+		mapped.sort(function(a, b) {
+			if (a.value.querySelector(".member-sort").innerText === b.value.querySelector('.member-sort').innerText)
+				return 0;
+			
+			if (a.value.querySelector(".member-sort").innerText <= b.value.querySelector('.member-sort').innerText) {
+				// b comes before a
+				return 1;
+			}
+			return -1;
+		});
+
+		var changed_ind = mapped.map(function(el) {
+			return el.index;
+		});
+
+
+		console.log(changed_ind);
+
+		//render children of '#clubs' to be the same as nodeArray
+		var clubs = document.getElementById('clubs');
+		clubs.innerHTML = ' ';
+		for (var i=0; i < mapped.length; i++){
+			clubs.appendChild(mapped[i].value);
+		};
+
+		$(".con2").children(".brief-sort").show();
+		$(".con2").children(".member-sort").show();
+		$(".con2").children(".ratio-sort").hide();
+		$(".con2").children(".fee-sort").hide();
+
+		$(".con2").children(".fa-user-friends").show();
+		$(".con2").children(".fa-dollar-sign").hide();
+		$(".con2").children(".fa-venus-mars").hide();
+
+		callDefault();
+		
 	});
 
 
