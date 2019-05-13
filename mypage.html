@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ace of Clubs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/flexslider.css">
+    
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+
+    <!-- jQuery -->
+    <script src="js/jquery.min.js"></script>
+    <!-- jQuery Easing -->
+    <script src="js/jquery.easing.1.3.js"></script>
+    <!-- Bootstrap -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Waypoints -->
+    <script src="js/jquery.waypoints.min.js"></script>
+    <!-- Flexslider -->
+    <script src="js/jquery.flexslider-min.js"></script>
+    <!-- Owl carousel -->
+    <script src="js/owl.carousel.min.js"></script>
+    <!-- Counters -->
+    <script src="js/jquery.countTo.js"></script>
+
+    <!-- jQuery Schedule -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="node_modules/jquery-schedule/dist/jquery.schedule.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="node_modules/jquery-schedule/dist/jquery.schedule.css">
+
+
+    <script src="js/modernizr-2.6.2.min.js"></script>
+
+</head>
+
+<body>
+
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-database.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyC5wA729_pUBGrEtp59xe9OBUNCJ-i79GM",
+            authDomain: "meta4-clubs.firebaseapp.com",
+            databaseURL: "https://meta4-clubs.firebaseio.com",
+            projectId: "meta4-clubs",
+            storageBucket: "meta4-clubs.appspot.com",
+            messagingSenderId: "191157401723"
+        };
+        firebase.initializeApp(config);
+    </script>
+    
+    <div id="colorlib-page">
+        <div class="container-wrap">
+            <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle" data-toggle="collapse" data-target="#navbar"
+                aria-expanded="false" aria-controls="navbar"><i></i></a>
+            <aside id="colorlib-aside" role="complementary" class="border js-fullheight">
+                <div class="text-center">
+                    <div class="author-img" style="background-image: url(images/logo.png);"></div>
+                    <h1 id="colorlib-logo"><a href="index.html">Ace of Clubs</a></h1>
+                </div>
+                <nav id="colorlib-main-menu" role="navigation" class="navbar">
+                    <div id="navbar" class="collapse">
+                        <ul>
+                            <li><a href="QnA.html" class="external">QnA</a></li>
+                            <li><a href="categories.html" class="external">Categories</a></li>
+                            <li><a href="mypage.html" class="external">My page</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </aside>
+
+            <div id="colorlib-main">
+                <section class="colorlib-work" data-section="work">
+                    <div class="row">
+                        <div class="column1"></div>
+                        <div class="column2">
+                            <div id="schedule-demo"></div>
+                        </div>
+                    </div>
+                    
+                    
+
+                </section>
+            </div><!-- end:colorlib-main -->
+        </div><!-- end:container-wrap -->
+    </div><!-- end:colorlib-page -->
+
+
+
+    <!-- MAIN JS -->
+    <script src="js/mypage.js"></script>
+
+</body>
+
+</html>
