@@ -52,6 +52,23 @@
     this.init();
   }
 
+  function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
+  function hexToRgba(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    var r= parseInt(result[1], 16);
+    var g= parseInt(result[2], 16);
+    var b= parseInt(result[3], 16);
+    return "rgba("+r+","+g+","+b+",0.5)";
+  }
+
   $.extend(Plugin.prototype, {
     /**
      * Plugin instance seed
@@ -230,7 +247,7 @@
 
       $('<div class="jqs-grid"><div class="jqs-grid-head"></div></div>').appendTo($(this.element));
 
-      for (var j = 0; j < 25; j++) {
+      for (var j = 6; j < 25; j++) {
         $('<div class="jqs-grid-line"><div class="jqs-grid-hour">' + this.formatHour(j) + '</div></div>').
           appendTo($('.jqs-grid', this.element));
       }
@@ -262,6 +279,7 @@
             var parent = $('.jqs-day', $this.element).eq(data.day);
             var options = {};
             var height, position;
+            var clubname = data.name;
             if ($.isArray(period)) {
               position = $this.positionFormat(period[0]);
               height = $this.positionFormat(period[1]);
@@ -275,7 +293,7 @@
               height = $this.periodHeight;
             }
 
-            $this.add(parent, position, height - position, options);
+            $this.add(parent, position, height - position, options,clubname);
           });
         });
       }
@@ -288,9 +306,9 @@
      * @param {int} height
      * @param options
      */
-    add: function (parent, position, height, options) {
+    add: function (parent, position, height, options,clubname) {
 
-      if (height <= 0 || position >= this.periodHeight) {
+      if (height <= 0 || position >= this.periodHeight || position < 12) {
         console.error('Invalid period');
 
         return false;
@@ -308,20 +326,24 @@
       }
 
       var periodTitle = '<div class="jqs-period-title">' + options.title + '</div>';
-      var periodTime = '<div class="jqs-period-time">' + this.periodInit(position, position + height) + '</div>';
+      var periodTime = '<div class="jqs-period-time">' + clubname + '</div>';
       var period = $('<div class="jqs-period">' +
         '<div class="jqs-period-container">' + periodTime + periodTitle + periodRemove + periodDuplicate + '</div>' +
         '</div>').css({
-        'top': position * this.periodPosition,
+        'top': (position - 12) * this.periodPosition,
         'height': height * this.periodPosition
       }).attr('id', this.uniqId()).attr('title', options.title).appendTo(parent);
 
+      var random_color = getRandomColor();
+      var rbga_random = hexToRgba(random_color)
+      console.log(rbga_random);
+
       $('.jqs-period-container', period).css({
-        'background-color': options.backgroundColor,
+        'background-color': rbga_random,
         'border-color': options.borderColor,
         'color': options.textColor
       });
-
+      /*
       // period validation
       if (!this.isValid(period)) {
         console.error('Invalid period', this.periodInit(position, position + height));
@@ -330,6 +352,7 @@
 
         return false;
       }
+      */
 
       // text format
       this.periodText(period);
