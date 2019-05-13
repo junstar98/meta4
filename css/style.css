@@ -78,6 +78,7 @@ figure {
   padding-bottom: 40px;
   float: left;
   width: 250px;
+  height: 100%;
   position: fixed;
   z-index: 1001;
   background: #f2f3f7;
@@ -1571,6 +1572,7 @@ body.offcanvas {
     will-change: transform;
 }
 
+<<<<<<< HEAD
 .project2 {
   background-size: cover;
   background-position: center center;
@@ -1649,3 +1651,15 @@ body.offcanvas {
       padding-left: 3px;
       font-size: 15px;
       color: black; }
+=======
+.row {
+  display: flex;
+}
+
+.column1 {
+  flex: 40%;
+}
+.column2 {
+  flex: 60%;
+}
+>>>>>>> myPage implementation
