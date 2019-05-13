@@ -1572,7 +1572,6 @@ body.offcanvas {
     will-change: transform;
 }
 
-<<<<<<< HEAD
 .project2 {
   background-size: cover;
   background-position: center center;
@@ -1651,8 +1650,8 @@ body.offcanvas {
       padding-left: 3px;
       font-size: 15px;
       color: black; }
-=======
-.row {
+      
+#row-of-mypage {
   display: flex;
 }
 
@@ -1662,4 +1661,3 @@ body.offcanvas {
 .column2 {
   flex: 60%;
 }
->>>>>>> myPage implementation
