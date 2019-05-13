@@ -187,6 +187,7 @@
 		node2.setAttribute(
 		"style",
 		"border: 2px solid; border-color: #2c98f0; background-color: rgba(44,152,240, 0.2); vertical-align: middle;"
+
 		);
 
 		var node3 = document.createElement("div");
