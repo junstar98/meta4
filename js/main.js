@@ -146,7 +146,7 @@
 
 		}
 
-	function makeClubDiv(name, brief, category, member, ratio, fee) {
+	function makeClubDiv(name, brief, category, member, ratio, fee, description) {
 		var place = document.getElementById("clubs");
 		var node = document.createElement("div");
 
