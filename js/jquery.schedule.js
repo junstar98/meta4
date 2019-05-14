@@ -8,7 +8,7 @@
 
   // Defaults options
   var defaults = {
-      mode: 'edit', // read
+      mode: 'read', // edit
       hour: 24, // 12
       days: 7, // 7/5
       periodDuration: 30, // 15/30/60
@@ -336,7 +336,7 @@
 
       var random_color = getRandomColor();
       var rbga_random = hexToRgba(random_color)
-      console.log(rbga_random);
+      //console.log(rbga_random);
 
       $('.jqs-period-container', period).css({
         'background-color': rbga_random,
