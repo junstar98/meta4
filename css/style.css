@@ -959,6 +959,7 @@ body.offcanvas {
     -webkit-transition: 0.3s;
     -o-transition: 0.3s;
     transition: 0.3s; }
+  
     .project .desc .con {
       padding: 20px;
       display: block;
@@ -1549,6 +1550,8 @@ body.offcanvas {
     background-clip: padding-box;
     border: 1px solid rgba(0,0,0,.15);
     border-radius: .25rem;
+    overflow:auto;
+ 
 }
 
 .dropdown-item {
@@ -1570,6 +1573,7 @@ body.offcanvas {
     top: 0px;
     left: 0px;
     will-change: transform;
+    height: 80px;
 }
 
 .project2 {
@@ -1687,3 +1691,22 @@ body.offcanvas {
 .questions input{
   width: 400px;
 }
+
+div .com2{
+  height: 120px;
+  width: 350px;
+  overflow:auto;
+}
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+  }
+  ::-webkit-scrollbar-thumb {
+      border-radius: 4px;
+      background-color: rgba(0,0,0,.5);
+      box-shadow: 0 0 1px rgba(255,255,255,.5);
+  }
+
+  .questButton{
+    margin-left: 10px;
+  }

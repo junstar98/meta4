@@ -37,7 +37,7 @@
 			var myValue = snapshot.val();
 
 			var keyList = (Object.keys(myValue)).reverse();
-			console.log(keyList);
+			//console.log(keyList);
 
 			for (var i = 0; i < keyList.length; i++){
 				let details =[];
@@ -62,10 +62,10 @@
 		})
 	}
 	
-
+	// add question to firebase
 	function newQuestion(question,club){
 		var newKey = firebase.database().ref('/QnA/').push();
-		console.log(newKey);
+		//console.log(newKey);
 		newKey.set({
 			Question: question, 
 			Club: club,
@@ -73,22 +73,40 @@
 			Likes: 0
 		});
 	}
+	//press Submit button
 	$(".questButton").click(function(){
+		var toClub = $(".dropdown-toggle").text()
 		var newQ = $("#newQuest").val();
-		console.log(newQ);
-		newQuestion(newQ,"DOOLLY");
+		//console.log(newQ);
+		newQuestion(newQ,toClub);
 		$("#QNAs").empty();
 		readQNA(function(){
 			callDefault();
 		})
+		$(".dropdown-toggle").text("Clubs");
+		$("#newQuest").val('');
 	});
+	//when mouse leaves qna box after seeing comment
+	$(document).on("mouseleave",".col-md-6",function(event){
+
+			$(".project2 .desc").css("opacity","1");
+			$(".project2 .desc2").css("opacity","0");
+		
+	});
+
 	//Comment Button
 	$(document).on("click",".project2 .desc .con .icon_c span", function(event){
 		//console.log(event.target)
+		event.preventDefault();
 		if($(event.target).hasClass("commentButton")){
 			$(event.target.parentNode.parentNode.parentNode.parentNode).css("opacity","0");
 			//console.log(event.target.parentNode.parentNode.parentNode.parentNode.parentNode.children[1])
 			$(event.target.parentNode.parentNode.parentNode.parentNode.parentNode.children[1]).css("opacity","1");
+		}
+
+		if($(event.target).hasClass("fa-comment")){
+			$(event.target.parentNode.parentNode.parentNode.parentNode.parentNode).css("opacity","0");
+			$(event.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.children[1]).css("opacity","1");
 		}
 	});
 	//Close Button
@@ -101,9 +119,12 @@
 	});
 
 	$(document).on("click",".project2 .desc .con .icon span", function(event){
+		event.preventDefault();
 		
 		if($(event.target).hasClass("likeButton")){
-			console.log(event.target.parentNode)
+			//console.log(event.target.parentNode)
+			var compQuestion = $(event.target.parentNode.parentNode.parentNode.children[1]).text();
+			var compClub = $(event.target.parentNode.parentNode.parentNode.children[0]).text();
 
 			if($(event.target.parentNode).hasClass("liked")){
 				$(event.target.parentNode).removeClass("liked");
@@ -113,7 +134,7 @@
 				//console.log($(this.children[0]));
 	
 				$(event.target).html($(event.target).html().replace($(event.target).text(),Number($(event.target).text())-1))
-				var compQuestion = $(event.target.parentNode.parentNode.parentNode.children[1]).text();
+
 				//console.log($(this.parentNode.parentNode))
 				//console.log($(event.target.parentNode.parentNode.parentNode))
 	
@@ -124,7 +145,7 @@
 	
 					for (var i = 0; i < keyList.length; i++){
 						var currKey = keyList[i];
-						if(myValue[currKey].Question == compQuestion){
+						if(myValue[currKey].Question == compQuestion && myValue[currKey].Club == compClub ){
 							//console.log("matched");
 							firebase.database().ref("/QnA/"+currKey).update({Likes: myValue[currKey].Likes-1});
 						}
@@ -139,7 +160,6 @@
 				$(event.target.children).css("color","red");
 				//console.log($(this.children[0]).html().replace($(this.children[0]).text(),Number($(this.children[0]).text())+1));
 				$(event.target).html($(event.target).html().replace($(event.target).text(),Number($(event.target).text())+1))
-				var compQuestion = $(event.target.parentNode.parentNode.parentNode.children[1]).text();
 	
 				return firebase.database().ref("/QnA/").once("value", function(snapshot){
 					var myValue = snapshot.val();
@@ -148,7 +168,63 @@
 	
 					for (var i = 0; i < keyList.length; i++){
 						var currKey = keyList[i];
-						if(myValue[currKey].Question == compQuestion){
+						if(myValue[currKey].Question == compQuestion && myValue[currKey].Club == compClub ){
+							//console.log("matched");
+							firebase.database().ref("/QnA/"+currKey).update({Likes: myValue[currKey].Likes+1});
+						}
+					}
+				});
+			}
+		}
+
+		if($(event.target).hasClass("icon-heart")){
+			//console.log(event.target.parentNode.parentNode.parentNode.parentNode.children[1])
+			var compClub = $(event.target.parentNode.parentNode.parentNode.parentNode.children[0]).text();
+			var compQuestion = $(event.target.parentNode.parentNode.parentNode.parentNode.children[1]).text();
+
+			if($(event.target.parentNode.parentNode).hasClass("liked")){
+				$(event.target.parentNode.parentNode).removeClass("liked");
+				$(event.target.parentNode.parentNode).addClass("disliked");
+				//console.log($(event.target))
+				$(event.target).css("color","black");
+				//console.log($(this.children[0]));
+	
+				$(event.target.parentNode).html($(event.target.parentNode).html().replace($(event.target.parentNode).text(),Number($(event.target.parentNode).text())-1))
+				
+				//console.log($(this.parentNode.parentNode))
+				//console.log($(event.target.parentNode.parentNode.parentNode))
+	
+				return firebase.database().ref("/QnA/").once("value", function(snapshot){
+					var myValue = snapshot.val();
+	
+					var keyList = Object.keys(myValue);
+	
+					for (var i = 0; i < keyList.length; i++){
+						var currKey = keyList[i];
+						if(myValue[currKey].Question == compQuestion && myValue[currKey].Club == compClub ){
+							//console.log("matched");
+							firebase.database().ref("/QnA/"+currKey).update({Likes: myValue[currKey].Likes-1});
+						}
+					}
+				});
+				
+				
+			}
+			else{
+				//console.log(this)
+				$(event.target.parentNode.parentNode).addClass("liked");
+				$(event.target).css("color","red");
+				//console.log($(this.children[0]).html().replace($(this.children[0]).text(),Number($(this.children[0]).text())+1));
+				$(event.target.parentNode).html($(event.target.parentNode).html().replace($(event.target.parentNode).text(),Number($(event.target.parentNode).text())+1))
+	
+				return firebase.database().ref("/QnA/").once("value", function(snapshot){
+					var myValue = snapshot.val();
+	
+					var keyList = Object.keys(myValue);
+	
+					for (var i = 0; i < keyList.length; i++){
+						var currKey = keyList[i];
+						if(myValue[currKey].Question == compQuestion && myValue[currKey].Club == compClub ){
 							//console.log("matched");
 							firebase.database().ref("/QnA/"+currKey).update({Likes: myValue[currKey].Likes+1});
 						}
@@ -158,7 +234,32 @@
 		}
 		
 	});
-	
+	//make dropdown based on club info in firebase
+	function makeDropdown(){
+		var place = document.getElementById("dropdown");
+		
+		return firebase.database().ref('/Info/').once("value",function(snapshot){
+			var myValue = snapshot.val();
+			var keyList = Object.keys(myValue);
+
+			for (var i = 0; i < keyList.length; i++){
+				var clubName = keyList[i];
+				var node = document.createElement("a");
+				node.setAttribute("class","dropdown-item");
+				node.setAttribute("href","#");
+				node.innerText = clubName;
+				
+				place.appendChild(node)
+			}
+		});
+	}
+	makeDropdown();
+
+	//select a dropdown option
+	$(document).on("click",".dropdown-item",function(event){
+		var toClub = $(event.target).text();
+		$(".dropdown-toggle").text(toClub);
+	});
 	
 	function makeQNADiv(Question, Club, Likes, CommentCount,Comments){
 		var place = document.getElementById("QNAs");
@@ -226,6 +327,9 @@
 
 		var span2 = document.createElement("span");
 		span2.setAttribute("class","allcomments")
+
+		var com2 = document.createElement("div");
+		com2.setAttribute("class","com2");
 		
 		var closeIcon = document.createElement("i");
 		closeIcon.setAttribute("class","icon-times");
@@ -234,11 +338,12 @@
 		if(Comments.length!=0){
 			for(var i=0; i< Comments[0].length; i++){
 				var commentNode = document.createElement("p")
-				console.log(Comments[0][i])
+				//console.log(Comments[0][i])
 				commentNode.innerText = "A:   "+Comments[0][i];
-				span2.appendChild(commentNode);
+				com2.appendChild(commentNode);
 			}
 		}
+		span2.appendChild(com2);
 		
 
 		node4_2.appendChild(span2);
@@ -1221,7 +1326,6 @@
 		owlCrouselFeatureSlide();
 	};
 
-	callDefault();
 
 	readClubInfo(function() {
 		
