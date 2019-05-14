@@ -949,6 +949,7 @@ body.offcanvas {
 
 
   .project .desc {
+    
     position: absolute;
     top: 0;
     bottom: 0;
@@ -1659,13 +1660,33 @@ body.offcanvas {
   display: flex;
 }
 
-.column1 {
+#column1 {
   flex: 40%;
+  padding-top: 60px;
 }
-.column2 {
+#column2 {
   flex: 60%;
 }
 
+#underline {
+  border: 1px solid black;
+}
+
+#myClubs-title {
+  padding-left: 10px;
+}
+
+#myCLub-table {
+  border-collapse: collapse;
+}
+
+#ex {
+  color: red;
+  cursor: pointer;
+}
+#seemore {
+  cursor: pointer;
+}
 .project2 .desc2{
   position: relative;
   top: 0;
@@ -1710,3 +1731,18 @@ div .com2{
   .questButton{
     margin-left: 10px;
   }
+#clubs .project .desc {
+  cursor:pointer;
+}
+
+.fade.in {
+  opacity: 1;
+}
+.modal.in .modal-dialog {
+  -webkit-transform: translate(0, 0);
+  -o-transform: translate(0, 0);
+  transform: translate(0, 0);
+}
+.modal-backdrop.in {
+  opacity: 0.5;
+}
