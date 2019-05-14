@@ -53,8 +53,34 @@
             messagingSenderId: "191157401723"
         };
         firebase.initializeApp(config);
+
+
     </script>
+
+    <!-- Modal -->
+    <div class="modal fade" style="position: absolute" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Further details about the club
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="club-add btn btn-primary">ADD CLUB</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <div id="colorlib-page">
+       
         <div class="container-wrap">
             <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle" data-toggle="collapse" data-target="#navbar"
                 aria-expanded="false" aria-controls="navbar"><i></i></a>
@@ -89,11 +115,15 @@
                         Gender Ratio <span class="up"><i class="fas fa-caret-up g1" style="color:green"></i></span> <span class="down"><i
                                 class="fas fa-caret-down g2"></i></span></li>
                 </div>
+                
+                
             </aside>
 
             <div id="colorlib-main">
+                
                 <section class="colorlib-work" data-section="work">
                     <div class="colorlib-narrow-content">
+                        
                         <div class="row">
                             <div id="custom-search-input">
                                 <div class="input-group col-md-12">
@@ -121,11 +151,18 @@
                         <div class="row" id="clubs">
                             <!-- clubs will be generated here!! -->
                         </div>
+                        
+                        
                     </div>
+                    
+                   
+                    
                 </section>
             </div><!-- end:colorlib-main -->
         </div><!-- end:container-wrap -->
+        
     </div><!-- end:colorlib-page -->
+    
 
     <!-- jQuery -->
     <script src="js/jquery.min.js"></script>
