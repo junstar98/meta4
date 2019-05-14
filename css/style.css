@@ -1656,11 +1656,11 @@ body.offcanvas {
 }
 
 #column1 {
-  width: 40%;
+  flex: 40%;
   padding-top: 60px;
 }
 #column2 {
-  width: 60%;
+  flex: 60%;
 }
 
 
