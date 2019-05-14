@@ -1672,6 +1672,17 @@ body.offcanvas {
   padding-left: 10px;
 }
 
+#myCLub-table {
+  border-collapse: collapse;
+}
+
+#ex {
+  color: red;
+  cursor: pointer;
+}
+#seemore {
+  cursor: pointer;
+}
 .project2 .desc2{
   position: relative;
   top: 0;

@@ -293,7 +293,7 @@
               height = $this.periodHeight;
             }
 
-            $this.add(parent, position, height - position, options,clubname);
+            $this.add(parent, position, height - position, options, clubname);
           });
         });
       }
@@ -328,7 +328,7 @@
       var periodTitle = '<div class="jqs-period-title">' + options.title + '</div>';
       var periodTime = '<div class="jqs-period-time">' + clubname + '</div>';
       var period = $('<div class="jqs-period">' +
-        '<div class="jqs-period-container">' + periodTime + periodTitle + periodRemove + periodDuplicate + '</div>' +
+        '<div class="jqs-period-container" id="' + clubname + '">' + periodTime + periodTitle + periodRemove + periodDuplicate + '</div>' +
         '</div>').css({
         'top': (position - 12) * this.periodPosition,
         'height': height * this.periodPosition
