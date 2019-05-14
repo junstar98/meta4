@@ -313,7 +313,13 @@
 
 		var node3 = document.createElement("div");
 
-		node3.setAttribute("class", "desc");
+		node3.setAttribute("class", "desc ");
+		
+		
+		//modal with desc
+		node3.setAttribute("data-toggle", "modal ");
+		node3.setAttribute("data-target", "#basicExampleModal");
+		
 
 		var node4 = document.createElement("div");
 
@@ -329,15 +335,20 @@
 		var briefNode = document.createElement("span");
 
 		briefNode.innerText = description;
-
+		
+		var span_add_icon = document.createElement("div");
 		var add_icon = document.createElement("i");
 		add_icon.setAttribute("class", "fas fa-plus");
-		add_icon.setAttribute("style", "float: right; padding-top: 20px; padding-right: 20px; color: #333333;");
+		add_icon.setAttribute("style", "color: #333333;");
+		span_add_icon.setAttribute("style", "float: right; padding-top: 20px; padding-right: 20px;");
+		span_add_icon.setAttribute("class", "plus-plus");
+		
 
 		nameNodeHeader.appendChild(nameNode);
-
+		
+		span_add_icon.appendChild(add_icon);
 		node4.appendChild(nameNodeHeader);
-		node3.appendChild(add_icon);
+		node3.appendChild(span_add_icon);
 		node4.appendChild(briefNode);
 
 		//secondary
@@ -1279,6 +1290,52 @@
 
 	readQNA(function(){
 		callDefault();
-	})
+	});
+
+
+
+	//click on club --> modal 
+	$(document).on('click', '.project .desc ', function(event) {
+
+
+		var myModal = $(this).data('target');
+
+		$('.modal .modal-dialog .modal-content .modal-header h5').text( $(this).children()[1].querySelectorAll('a')[0].innerText);
+
+		$(myModal).modal('show');
+		document.body.scrollTop = document.documentElement.scrollTop = 0;
+	});
+
+
+
+
+
+	//db function 
+	function writeToMyPage(name) {
+		var newKey = firebase.database().ref('/MyPageDemo/').push();
+		newKey.set({
+			name: name
+	})};
+
+
+	//add club to MyPage DB + other functions
+	$('.club-add').click(function() {
+		console.log("ADDED");
+
+		//write to db
+		console.log($('.modal-title')[0].innerText);
+		writeToMyPage($('.modal-title')[0].innerText);
+
+
+		//hide the div element
+
+
+
+		//alert that club has been added
+
+		//re-render categories
+	});
+	
+
 
 }());

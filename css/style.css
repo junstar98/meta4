@@ -949,6 +949,7 @@ body.offcanvas {
 
 
   .project .desc {
+    
     position: absolute;
     top: 0;
     bottom: 0;
@@ -1695,4 +1696,20 @@ body.offcanvas {
 }
 .questions input{
   width: 400px;
+}
+
+#clubs .project .desc {
+  cursor:pointer;
+}
+
+.fade.in {
+  opacity: 1;
+}
+.modal.in .modal-dialog {
+  -webkit-transform: translate(0, 0);
+  -o-transform: translate(0, 0);
+  transform: translate(0, 0);
+}
+.modal-backdrop.in {
+  opacity: 0.5;
 }
