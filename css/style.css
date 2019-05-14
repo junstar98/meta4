@@ -1655,12 +1655,21 @@ body.offcanvas {
   display: flex;
 }
 
-.column1 {
-  flex: 40%;
+#column1 {
+  width: 40%;
+  padding-top: 60px;
 }
-.column2 {
-  flex: 60%;
+#column2 {
+  width: 60%;
 }
+
+
+#underline {
+  border: 1px solid black;
+}
+
+#myClubs-title {
+  padding-left: 10px;
 
 .project2 .desc2{
   position: relative;
