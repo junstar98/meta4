@@ -1,6 +1,7 @@
 ;(function () {
 	
 	'use strict';
+	  
 
 	function readClubInfo(callback) {
 		return firebase
@@ -35,9 +36,12 @@
 		return firebase.database().ref("/QnA/").once("value", function(snapshot){
 			var myValue = snapshot.val();
 
-			var keyList = Object.keys(myValue);
+			var keyList = (Object.keys(myValue)).reverse();
+			console.log(keyList);
+
 			for (var i = 0; i < keyList.length; i++){
 				let details =[];
+				let comments = []
 
 				var currKey = keyList[i];
 				details.push(myValue[currKey].Question);
@@ -45,13 +49,14 @@
 				details.push(myValue[currKey].Likes);
 				details.push(myValue[currKey].CommentCount);
 				
-				var commentList = myValue[currKey].Comments;
-				var comments = (Object.values(commentList));
+				if(myValue[currKey].CommentCount!=0){
+					let commentList = myValue[currKey].Comments;
+					
+					comments.push(Object.values(commentList));
+					
+				}
 
-				console.log(comments)
-
-				makeQNADiv(details[0],details[1],details[2],details[3]);
-				//makeAnswerDiv(commments);
+				makeQNADiv(details[0],details[1],details[2],details[3],comments);
 			}
 			callback();
 		})
@@ -68,9 +73,94 @@
 			Likes: 0
 		});
 	}
+	$(".questButton").click(function(){
+		var newQ = $("#newQuest").val();
+		console.log(newQ);
+		newQuestion(newQ,"DOOLLY");
+		$("#QNAs").empty();
+		readQNA(function(){
+			callDefault();
+		})
+	});
+	//Comment Button
+	$(document).on("click",".project2 .desc .con .icon_c span", function(event){
+		//console.log(event.target)
+		if($(event.target).hasClass("commentButton")){
+			$(event.target.parentNode.parentNode.parentNode.parentNode).css("opacity","0");
+			//console.log(event.target.parentNode.parentNode.parentNode.parentNode.parentNode.children[1])
+			$(event.target.parentNode.parentNode.parentNode.parentNode.parentNode.children[1]).css("opacity","1");
+		}
+	});
+	//Close Button
+	$(document).on("click",".project2 .desc2 .con2 .allcomments .icon-times", function(event){
+		console.log(event.target.parentNode.parentNode.parentNode.parentNode.children[0]);
+		console.log(event.target.parentNode.parentNode.parentNode.parentNode.children[1]);
+		$(event.target.parentNode.parentNode.parentNode.parentNode.children[0]).css("opacity","1");
+		$(event.target.parentNode.parentNode.parentNode.parentNode.children[1]).css("opacity","0");
+	//Like Button
+	});
+
+	$(document).on("click",".project2 .desc .con .icon span", function(event){
+		
+		if($(event.target).hasClass("likeButton")){
+			console.log(event.target.parentNode)
+
+			if($(event.target.parentNode).hasClass("liked")){
+				$(event.target.parentNode).removeClass("liked");
+				$(event.target.parentNode).addClass("disliked");
+				//console.log($(event.target))
+				$(event.target.children).css("color","black");
+				//console.log($(this.children[0]));
+	
+				$(event.target).html($(event.target).html().replace($(event.target).text(),Number($(event.target).text())-1))
+				var compQuestion = $(event.target.parentNode.parentNode.parentNode.children[1]).text();
+				//console.log($(this.parentNode.parentNode))
+				//console.log($(event.target.parentNode.parentNode.parentNode))
+	
+				return firebase.database().ref("/QnA/").once("value", function(snapshot){
+					var myValue = snapshot.val();
+	
+					var keyList = Object.keys(myValue);
+	
+					for (var i = 0; i < keyList.length; i++){
+						var currKey = keyList[i];
+						if(myValue[currKey].Question == compQuestion){
+							//console.log("matched");
+							firebase.database().ref("/QnA/"+currKey).update({Likes: myValue[currKey].Likes-1});
+						}
+					}
+				});
+				
+				
+			}
+			else{
+				//console.log(this)
+				$(event.target.parentNode).addClass("liked");
+				$(event.target.children).css("color","red");
+				//console.log($(this.children[0]).html().replace($(this.children[0]).text(),Number($(this.children[0]).text())+1));
+				$(event.target).html($(event.target).html().replace($(event.target).text(),Number($(event.target).text())+1))
+				var compQuestion = $(event.target.parentNode.parentNode.parentNode.children[1]).text();
+	
+				return firebase.database().ref("/QnA/").once("value", function(snapshot){
+					var myValue = snapshot.val();
+	
+					var keyList = Object.keys(myValue);
+	
+					for (var i = 0; i < keyList.length; i++){
+						var currKey = keyList[i];
+						if(myValue[currKey].Question == compQuestion){
+							//console.log("matched");
+							firebase.database().ref("/QnA/"+currKey).update({Likes: myValue[currKey].Likes+1});
+						}
+					}
+				});
+			}
+		}
+		
+	});
 	
 	
-	function makeQNADiv(Question, Club, Likes, CommentCount){
+	function makeQNADiv(Question, Club, Likes, CommentCount,Comments){
 		var place = document.getElementById("QNAs");
 		var node = document.createElement("div");
 
@@ -125,6 +215,36 @@
 		var commentIcon = document.createElement("i");
 		commentIcon.setAttribute("class","far fa-comment")
 
+		//secondary
+
+		var node3_2 = document.createElement("div");
+
+		node3_2.setAttribute("class", "desc2");
+
+		var node4_2 = document.createElement("div");
+		node4_2.setAttribute("class", "con2");
+
+		var span2 = document.createElement("span");
+		span2.setAttribute("class","allcomments")
+		
+		var closeIcon = document.createElement("i");
+		closeIcon.setAttribute("class","icon-times");
+		span2.appendChild(closeIcon);
+		
+		if(Comments.length!=0){
+			for(var i=0; i< Comments[0].length; i++){
+				var commentNode = document.createElement("p")
+				console.log(Comments[0][i])
+				commentNode.innerText = "A:   "+Comments[0][i];
+				span2.appendChild(commentNode);
+			}
+		}
+		
+
+		node4_2.appendChild(span2);
+		node3_2.appendChild(node4_2);
+		
+
 		commentA.appendChild(commentIcon);
 		commentSpan.appendChild(commentA);
 		commentP.appendChild(commentSpan);
@@ -141,6 +261,7 @@
 
 		node3.appendChild(node4);
 		node2.appendChild(node3);
+		node2.appendChild(node3_2);
 		node.appendChild(node2);
 		place.appendChild(node);
 

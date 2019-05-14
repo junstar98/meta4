@@ -1663,10 +1663,36 @@ body.offcanvas {
   width: 60%;
 }
 
+
 #underline {
   border: 1px solid black;
 }
 
 #myClubs-title {
   padding-left: 10px;
+
+.project2 .desc2{
+  position: relative;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  opacity: 0;
+}
+.project2 .desc2 .con2 .allcomments p{
+  height: 10px;
+  margin-top: 20px;
+  margin-bottom:20px;
+  margin-left :20px;
+  margin-right: 20px;
+}
+.project2 .desc2 .con2 .allcomments .icon-times{
+  cursor: pointer;
+  position: relative;
+  left: 95%;
+  top: 10%; 
+}
+.questions input{
+  width: 400px;
 }
