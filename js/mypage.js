@@ -15,6 +15,12 @@
         });
     }
 
+    function writeToMyPage(name) {
+		var newKey = firebase.database().ref('/MyPageDemo/').push();
+		newKey.set({
+			name: name
+	})};
+
     function readMyClubs(callback) {
 		return firebase
 		.database()
@@ -52,18 +58,32 @@
             
             var rand_list = [];
 
-            for (var num = 0; num < 5; num++) {
+            for (var num = 0; num < 8; num++) {
                 var rand_num = Math.floor(Math.random()*keyList.length);
-                rand_list.push(rand_num);
+                var overlap = 0;
+                if (rand_list.length > 0) {
+                    for (var m = 0; m < rand_list.length; m++) {
+                        if (rand_num == rand_list[m]) {
+                            overlap = 1;
+                        }
+                    }
+                    if (overlap == 0) {
+                        rand_list.push(rand_num);
+                    }
+                }
+                else {
+                    rand_list.push(rand_num);
+                }
             }
             console.log(rand_list);
 
-            var count = 0;
 			for (var i = 0; i < keyList.length; i++) {
                 var currKey = keyList[i];
+                var overlap = 0;
                 for (var j = 0; j < myPageClubs.length; j++) {
                     if (currKey.toUpperCase() == myPageClubs[j]) {
                         myPageClubs2.push(currKey);
+                        overlap = 1;
                         for (var k in myValue[currKey].Time) {
                             let details = [];
                             details.push(currKey);
@@ -80,14 +100,14 @@
                             myClubs.push(details);
                         }   
                     }
-                    else {
-                        if (i == rand_list[count]) {
-                            if (mySuggestions.length < 2) {
-                                mySuggestions.push(currKey);
-                                count++;
-                            }
+                }
+                if (overlap == 0) {
+                    for (var iter = 0; iter < rand_list.length; iter++) {
+                        if (i == rand_list[iter]) {
+                            mySuggestions.push(currKey);
                         }
                     }
+                    
                 }
 
             }
@@ -200,12 +220,15 @@
         
         node3.setAttribute("class","trigger info-color text-white");
         node3.setAttribute("id","seemore");
-        node3.innerHTML = "See More"
+        node3.innerHTML = "See More";
 
         var node6 = document.createElement("a");
         node6.setAttribute("class","trigger info-color text-white");
         node6.setAttribute("href","#");
+        node6.innerHTML = "Add ";
 
+        var node7 = document.createElement("i");
+        node7.setAttribute("class","fas fa-plus ml-2")
 
         var node4 = document.createElement("a");
         var node5 = document.createElement("i");
@@ -213,8 +236,11 @@
         node5.setAttribute("class","fas fa-times mx-1");
         node5.setAttribute("id","ex");
         
+        node6.appendChild(node7);
+
         node4.appendChild(node5);
         node2.appendChild(node3);
+        node2.appendChild(node6);
         node2.appendChild(node4);
         node.appendChild(node1);
         node.appendChild(node2);
@@ -223,7 +249,6 @@
 
         node5.addEventListener("click",function() {
             clubs.removeChild(node);
-            deleteclub(mySuggestions[i])
             for (var n = 0; n < 5; n++) {
                 var time_slot = document.getElementById(mySuggestions[i])
                 if (time_slot != undefined) {
@@ -231,6 +256,23 @@
                     time_slot_parent.parentElement.removeChild(time_slot_parent);
                 }
                 
+            }
+
+            if (i < mySuggestions.length-2) {
+                makeSugdiv(i+2);
+            }
+        });
+
+        node6.addEventListener("click",function() {
+            console.log("nice!")
+            myPageClubs2.push(mySuggestions[i]);
+            var end_index = myPageClubs2.length-1;
+            makeClubdiv(end_index);
+            clubs.removeChild(node);
+            writeToMyPage(mySuggestions[i].toUpperCase());
+
+            if (i < mySuggestions.length-2) {
+                makeSugdiv(i+2);
             }
         });
 
@@ -262,9 +304,11 @@
     function callDefault() {
         readMyClubs(function() {
             readClubInfo(function() {
-                console.log(myClubs);
-                for (var a=0; a < myPageClubs.length; a++) {
+                for (var a=0; a < myPageClubs2.length; a++) {
                     makeClubdiv(a);
+                }
+                for (var b=0; b < 2; b++) {
+                    makeSugdiv(b);
                 }
                 console.log(mySuggestions);
                 makeTimeSlot();
