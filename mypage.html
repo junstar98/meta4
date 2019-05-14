@@ -10,7 +10,6 @@
     <meta name="keywords" content="" />
     <meta name="author" content="" />
 
-    <link rel="shortcut icon" href="favicon.ico">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
     integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
@@ -24,6 +23,8 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
     <link rel="stylesheet" href="css/style.css">
+
+    <link href="css2/style.css" rel="stylesheet">
 
 
     <!-- jQuery -->
@@ -50,6 +51,7 @@
 
 
     <script src="js/modernizr-2.6.2.min.js"></script>
+    
 
 </head>
 
@@ -97,48 +99,45 @@
                         <div class="row" id="row-of-mypage">
                             <div id="column1" data-animate-effect="fadeInLeft">
                                 <h2 class="colorlib-heading" id="myClubs-title">My Clubs</h2>
-                                <hr id="underline" align="left" width = "50%" >
-                                <div class="row" id="clubs">
-                                    <!-- Where the clubs will be -->
+                                <hr id="underline" align="left" width = "100%" >
+                                <div class="card p-3">
+                                    <table class="table" id="myClub-table">
+                                        <tbody id="myclubs">
+                                            <!-- where lines of clubs come in-->
+                                        </tbody>
+                                    </table>
+                                </div>
 
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+
+                                <h2 class="colorlib-heading" id="myClubs-title">Suggestions</h2>
+                                <hr id="underline" align="left" width = "100%" >
+                                <div class="card p-3">
+                                    <table class="table">
+                                        <tbody id="mysugg">
+                                            <tr>
+                                                <td>TU</td>
+                                                <td class="text-right">
+                                                    <a class="trigger info-color text-white" href="#">See More</a>
+                                                    <a class="trigger info-color text-white" href="#">Add <i class="fas fa-plus ml-2"></i></a>
+                                                    <a><i class="fas fa-times mx-1" id="ex"></i></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Didimdol</td>
+                                                <td class="text-right">
+                                                    <a class="trigger info-color text-white" href="#">See More</a>
+                                                    <a class="trigger info-color text-white" href="#">Add <i class="fas fa-plus ml-2"></i></a>
+                                                    <a><i class="fas fa-times mx-1" id="ex"></i></a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div class="fancy-collapse-panel">
-                                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading" role="tab" id="headingOne">
-                                                <h4 class="panel-title">
-                                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion">VOK
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                        </div>
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading" role="tab" id="headingTwo">
-                                                <h4 class="panel-title">
-                                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion">DOOLLY
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                        </div>
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading" role="tab" id="headingThree">
-                                                <h4 class="panel-title">
-                                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion">Gaori
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                        </div>
-    
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading" role="tab" id="headingFour">
-                                                <h4 class="panel-title">
-                                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion">REAL Lunatic
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                
 
                             </div>
                             <div id="column2">

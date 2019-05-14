@@ -1656,11 +1656,11 @@ body.offcanvas {
 }
 
 #column1 {
-  width: 40%;
+  flex: 40%;
   padding-top: 60px;
 }
 #column2 {
-  width: 60%;
+  flex: 60%;
 }
 
 #underline {
@@ -1669,4 +1669,16 @@ body.offcanvas {
 
 #myClubs-title {
   padding-left: 10px;
+}
+
+#myCLub-table {
+  border-collapse: collapse;
+}
+
+#ex {
+  color: red;
+  cursor: pointer;
+}
+#seemore {
+  cursor: pointer;
 }
