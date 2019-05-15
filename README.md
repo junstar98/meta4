@@ -10,4 +10,4 @@ Supported Tasks:
 
 2. __Inspect__ the suggested clubs and __add__ a club that interests you.
 
-3. See if any of the __club schedules overlap__ with your school schedule. __Remove__ clubs that conflict with your classes.
+3. See if any of the __club schedules overlap__ with your school schedule. __Remove__ clubs that conflict with your other schedules.
