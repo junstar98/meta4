@@ -1758,3 +1758,9 @@ div .com2{
 .project .desc2{
   margin-left: 3%;
 }
+
+.close{
+  position:absolute;
+  top:5%;
+  left:96%;
+}
