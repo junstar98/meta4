@@ -2,6 +2,32 @@
 	
 	'use strict';
 	  
+	var colorMap = new Map();
+	colorMap.set("Academic", "blue");
+	colorMap.set("Culture", "red");
+	colorMap.set("Community Service", "green");
+	colorMap.set("Music","magenta");
+	colorMap.set("Sports","purple");
+	colorMap.set("Others","orange");
+
+	console.log(colorMap);
+	var ClubColor = new Map();
+
+	function matchColor(){
+		return firebase.database().ref("/Info/").once("value",function(snapshot){
+			var myValue = snapshot.val();
+			var keyList = Object.keys(myValue);
+
+			for(var i=0; i<keyList.length; i++){
+				var currKey = keyList[i];
+				ClubColor.set(currKey,colorMap.get(myValue[currKey].Category))
+			}
+
+		});
+		
+	}
+	matchColor();
+	console.log(ClubColor);
 
 	function readClubInfo(callback) {
 		return firebase
@@ -260,8 +286,9 @@
 		var toClub = $(event.target).text();
 		$(".dropdown-toggle").text(toClub);
 	});
-	
+
 	function makeQNADiv(Question, Club, Likes, CommentCount,Comments){
+	
 		var place = document.getElementById("QNAs");
 		var node = document.createElement("div");
 
@@ -270,12 +297,14 @@
 
 		var node2 = document.createElement("div");
 
+		var theColor = ClubColor.get(Club);
+
 		node2.setAttribute("class", "project2");
 		node2.setAttribute(
 			"style",
-			"border: 4px solid; border-color: black; background-color: white; vertical-align: middle;"
+			'border: 3px solid; border-color:'+theColor+'; background-color: white; vertical-align: middle;'
 			);
-
+		
 		var node3 = document.createElement("div");
 
 		node3.setAttribute("class", "desc");
@@ -369,8 +398,8 @@
 		node2.appendChild(node3_2);
 		node.appendChild(node2);
 		place.appendChild(node);
-
-		}
+	
+	}
 
 	function makeClubDiv(name, brief, category, member, ratio, fee, description) {
 		var place = document.getElementById("clubs");
@@ -408,11 +437,14 @@
 		}
 
 		var node2 = document.createElement("div");
-
+		console.log(category);
+		console.log(colorMap.get(category));
+		
+		var theColor = colorMap.get(category);
 		node2.setAttribute("class", "project");
 		node2.setAttribute(
 		"style",
-		"border: 2px solid; border-color: #2c98f0; background-color: rgba(44,152,240, 0.2); vertical-align: middle;"
+		"border: 2px solid; border-color: "+theColor+"; background-color: rgba(44,152,240, 0.2); vertical-align: middle;"
 
 		);
 
@@ -471,6 +503,7 @@
 		var nameNode_2 = document.createElement("a");
 
 		nameNode_2.setAttribute("href", "#");
+		nameNode_2.setAttribute("style","font-family:Quicksand, Arial, sans-serif;")
 		nameNode_2.innerText = name;
 
 		var briefNode_2 = document.createElement("div");
@@ -614,7 +647,7 @@
 		if ($(this).hasClass("inactive")) {
 		$(this).removeClass("inactive");
 		$(this).addClass("active");
-		$(this).css("color", "brown");
+		$(this).css("color", "magenta");
 		} else {
 		$(this).removeClass("active");
 		$(this).addClass("inactive");

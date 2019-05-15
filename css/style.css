@@ -1628,7 +1628,7 @@ body.offcanvas {
     letter-spacing: 1px;
     margin-bottom: 15px; }
     .project2 .desc h3 a {
-      color: #fff; }
+      color:#fff; }
   .project2 .desc span {
     display: block;
     color: rgba(255, 255, 255, 0.7);
@@ -1745,4 +1745,16 @@ div .com2{
 }
 .modal-backdrop.in {
   opacity: 0.5;
+}
+
+.project .desc2 .con2 h3 {
+  margin-top:5px;
+  margin-block-end: 8px;
+  
+}
+.project .desc2 .brief-sort{
+  margin-block-end: 8px;
+}
+.project .desc2{
+  margin-left: 3%;
 }
