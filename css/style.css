@@ -141,6 +141,7 @@ figure {
         letter-spacing: 1px; }
         #colorlib-aside #colorlib-main-menu ul li a {
           color: rgba(0, 0, 0, 0.7);
+          font-size: 13px;
           text-decoration: none;
           position: relative;
           padding: 10px 0;
