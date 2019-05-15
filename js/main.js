@@ -1439,19 +1439,7 @@
 
 		$('.modal .modal-dialog .modal-content .modal-header h5').text( $(this).children()[1].querySelectorAll('a')[0].innerText);
 		
-		var club_divs = document.querySelectorAll(".single-club");
-
-		var nodeArray = Array.prototype.slice.call(club_divs, 0);
-
-		for (var i = 0; i < nodeArray.length; i++) {
-
-			if (nodeArray[i].querySelector(".club-name").innerText.toUpperCase() === $('.modal-title')[0].innerText) {
-				
-				$('.modal .modal-dialog .modal-content .modal-body').text("Gender Ratio: " + nodeArray[i].querySelector(".desc2 .con2 .ratio-sort").innerText 
-				+ "   ,   " + "Fee: " + nodeArray[i].querySelector(".desc2 .con2 .fee-sort").innerText 
-				+ "   ,   " + "No. of Members: " + nodeArray[i].querySelector(".desc2 .con2 .member-sort").innerText);
-			}
-		};
+		
 
 		$(myModal).modal('show');
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
