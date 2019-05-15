@@ -1462,7 +1462,8 @@
 		//write to db
 		console.log($('.modal-title')[0].innerText);
 		writeToMyPage($('.modal-title')[0].innerText);
-
+		
+		$('.modal-close').trigger('click');
 
 		//hide the div element
 
