@@ -77,6 +77,8 @@
             }
             console.log(rand_list);
 
+            myClubs = [];
+
 			for (var i = 0; i < keyList.length; i++) {
                 var currKey = keyList[i];
                 var overlap = 0;
@@ -189,13 +191,19 @@
 
         clubs.appendChild(node);
 
+        var club_name = myPageClubs2[i];
+
         node5.addEventListener("click",function() {
             clubs.removeChild(node);
-            deleteclub(myPageClubs2[i])
+            deleteclub(club_name);
+
+            myPageClubs = arrayRemove(myPageClubs,club_name.toUpperCase());
+            myPageClubs2 = arrayRemove(myPageClubs2,club_name);
+
             for (var n = 0; n < 5; n++) {
-                var time_slot = document.getElementById(myPageClubs2[i])
+                var time_slot = document.getElementById(club_name)
                 if (time_slot != undefined) {
-                    var time_slot_parent = document.getElementById(myPageClubs2[i]).parentNode;
+                    var time_slot_parent = document.getElementById(club_name).parentNode;
                     time_slot_parent.parentElement.removeChild(time_slot_parent);
                 }
                 
@@ -264,12 +272,27 @@
         });
 
         node6.addEventListener("click",function() {
-            console.log("nice!")
+            var timetable = document.getElementById("schedule-demo");
             myPageClubs2.push(mySuggestions[i]);
+            myPageClubs.push(mySuggestions[i].toUpperCase());
             var end_index = myPageClubs2.length-1;
             makeClubdiv(end_index);
             clubs.removeChild(node);
             writeToMyPage(mySuggestions[i].toUpperCase());
+
+            var column2 = timetable.parentElement;
+            column2.removeChild(timetable);
+
+            var newtimetable = document.createElement("div");
+            newtimetable.setAttribute("id","schedule-demo");
+
+            column2.appendChild(newtimetable);
+            console.log(myPageClubs);
+            console.log(myPageClubs2);
+
+            readClubInfo(function() {
+                makeTimeSlot();
+            });
 
             if (i < mySuggestions.length-2) {
                 makeSugdiv(i+2);
@@ -293,7 +316,6 @@
                 if (myValue[currKey].name==clubname.toUpperCase()) {
                     var refDB = firebase.database().ref("/MyPageDemo/"+currKey);
                     refDB.remove();
-                    myPageClubs = arrayRemove(myPageClubs,clubname);
                 }
             }
             
@@ -310,7 +332,6 @@
                 for (var b=0; b < 2; b++) {
                     makeSugdiv(b);
                 }
-                console.log(mySuggestions);
                 makeTimeSlot();
             });
         });
