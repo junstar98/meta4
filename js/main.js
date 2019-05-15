@@ -1446,7 +1446,7 @@
 		for (var i = 0; i < nodeArray.length; i++) {
 
 			if (nodeArray[i].querySelector(".club-name").innerText.toUpperCase() === $('.modal-title')[0].innerText) {
-				console.log(nodeArray[i].querySelector(".desc2 .con2 .ratio-sort").innerText);
+				
 				$('.modal .modal-dialog .modal-content .modal-body').text("Gender Ratio: " + nodeArray[i].querySelector(".desc2 .con2 .ratio-sort").innerText 
 				+ "   ,   " + "Fee: " + nodeArray[i].querySelector(".desc2 .con2 .fee-sort").innerText 
 				+ "   ,   " + "No. of Members: " + nodeArray[i].querySelector(".desc2 .con2 .member-sort").innerText);
