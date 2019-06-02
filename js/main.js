@@ -101,16 +101,34 @@
 	}
 	//press Submit button
 	$(".questButton").click(function(){
-		var toClub = $(".dropdown-toggle").text()
+		var toClub = $(".dropdown-toggle").text().trim();
 		var newQ = $("#newQuest").val();
-		//console.log(newQ);
-		newQuestion(newQ,toClub);
-		$("#QNAs").empty();
-		readQNA(function(){
-			callDefault();
-		})
-		$(".dropdown-toggle").text("Clubs");
-		$("#newQuest").val('');
+		//console.log(toClub);
+		if(toClub=="Clubs"){
+			alert("Please direct the question to a specific club!");
+		}
+		else{
+			if(newQ==''){
+				alert("Please type a question");
+			}
+			else{
+				newQuestion(newQ,toClub);
+				$("#QNAs").empty();
+				readQNA(function(){
+					callDefault();
+				})
+				$(".dropdown-toggle").text("Clubs");
+				$("#newQuest").val('');
+			}
+		}
+		
+	});
+	//trigger click on enter
+	
+	$(document).on("keyup", function(event){
+	if (event.keyCode == 13) {
+		$(".questButton").click();
+	}
 	});
 	//when mouse leaves qna box after seeing comment
 	$(document).on("mouseleave",".col-md-6",function(event){
@@ -260,32 +278,7 @@
 		}
 		
 	});
-	//make dropdown based on club info in firebase
-	function makeDropdown(){
-		var place = document.getElementById("dropdown");
-		
-		return firebase.database().ref('/Info/').once("value",function(snapshot){
-			var myValue = snapshot.val();
-			var keyList = Object.keys(myValue);
 
-			for (var i = 0; i < keyList.length; i++){
-				var clubName = keyList[i];
-				var node = document.createElement("a");
-				node.setAttribute("class","dropdown-item");
-				node.setAttribute("href","#");
-				node.innerText = clubName;
-				
-				place.appendChild(node)
-			}
-		});
-	}
-	makeDropdown();
-
-	//select a dropdown option
-	$(document).on("click",".dropdown-item",function(event){
-		var toClub = $(event.target).text();
-		$(".dropdown-toggle").text(toClub);
-	});
 
 	function makeQNADiv(Question, Club, Likes, CommentCount,Comments){
 	
@@ -400,6 +393,32 @@
 		place.appendChild(node);
 	
 	}
+	//make dropdown based on club info in firebase
+	function makeDropdown(){
+		var place = document.getElementById("dropdown");
+		
+		return firebase.database().ref('/Info/').once("value",function(snapshot){
+			var myValue = snapshot.val();
+			var keyList = Object.keys(myValue);
+
+			for (var i = 0; i < keyList.length; i++){
+				var clubName = keyList[i];
+				var node = document.createElement("a");
+				node.setAttribute("class","dropdown-item");
+				node.setAttribute("href","#");
+				node.innerText = "@ "+clubName;
+				
+				place.appendChild(node)
+			}
+		});
+	}
+	makeDropdown();
+
+	//select a dropdown option
+	$(document).on("click",".dropdown-item",function(event){
+		var toClub = $(event.target).text();
+		$(".dropdown-toggle").text(toClub);
+	});
 
 	function makeClubDiv(name, brief, category, member, ratio, fee, description) {
 		var place = document.getElementById("clubs");
