@@ -1497,15 +1497,22 @@
 		console.log($('.modal-title')[0].innerText);
 		writeToMyPage($('.modal-title')[0].innerText);
 		
-		$('.modal-close').trigger('click');
+		//$('.modal-close').trigger('click');
 
 		//hide the div element
+		var club_divs = document.querySelectorAll(".single-club");
+		var nodeArray = Array.prototype.slice.call(club_divs, 0);
+		
+		for (var i = 0; i < nodeArray.length; i++) {
+			if (nodeArray[i].querySelector(".club-name").innerText.toUpperCase() === $('.modal-title')[0].innerText) {
+				console.log("FOUND");
+				console.log(club_divs[i]);
+				//club_divs[i].hide(); // has to be a query item
+			};
+		};
 
 
-
-		//alert that club has been added
-
-		//re-render categories
+		$('.modal-close').trigger('click');
 	});
 	
 
