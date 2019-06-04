@@ -102,6 +102,7 @@
 	//press Submit button
 	$(".questButton").click(function(){
 		var toClub = $(".dropdown-toggle").text().trim();
+		toClub = toClub.replace("@ ","");
 		var newQ = $("#newQuest").val();
 		//console.log(toClub);
 		if(toClub=="Clubs"){
